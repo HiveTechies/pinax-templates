@@ -1,4 +1,4 @@
-{% extends "site_base.html" %}
+{% extends "user/base.html" %}
 
 {% load account_tags %}
 {% load i18n %}
@@ -6,26 +6,33 @@
 
 {% block body_class %}account account-signup{% endblock %}
 {% block head_title %}{% trans "Sign up" %}{% endblock %}
+{% load bootstrap4 %}
+{% load static %}
 
-{% block body %}
-    <form id="signup_form" method="post" action="{% url "account_signup" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-        <legend>{% trans "Sign up" %}</legend>
-        {% csrf_token %}
-        {{ form|bootstrap }}
-        {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <div class="form-actions">
-            <button>{% trans "Sign up" %}</button>
-        </div>
-        <p class="login-signup">
-            {% trans "Already have an account?" %}
-            <a href="{% urlnext 'account_login' %}">{% trans "Log in" %}</a>
-        </p>
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center ">
+        <div class="col-md-6 shadow-lg d-flex justify-content-center align-items-center p-5">
+    		<form id="signup_form" method="post" action="{% url "account_signup" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+                <legend align="center"><img class="w-5" src="{% static 'logo.svg' %}" alt="Flipin">&nbsp;&nbsp; Register</legend>
+		    {% csrf_token %}
+		    {% bootstrap_form form %}
+
+		    {% if redirect_field_value %}
+		        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+		    {% endif %}
+		    <button class="btn btn-dark shadow">{% trans "Sign up" %}</button>
+		    <p class="login-signup">
+		        {% trans "Already have an account?" %}
+		        <a href="{% urlnext 'account_login' %}">{% trans "Log in" %}</a>
+		    </p>
     </form>
+       </div>
+    </div>
+</div>
 {% endblock %}
 
-{% block scripts %}
+{% block javascript %}
     {{ block.super }}
     <script type="text/javascript">
         $(document).ready(function() {
