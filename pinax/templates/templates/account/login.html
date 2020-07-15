@@ -2,7 +2,7 @@
 
 {% load account_tags %}
 {% load i18n %}
-{% load bootstrap %}
+{% load bootstrap4 %}
 {% load static %}
 {% block body_class %}account account-login{% endblock %}
 {% block head_title %}{% trans "Log in" %}{% endblock %}
@@ -14,7 +14,7 @@
     <form method="POST" action="{% url "account_login" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
                 <legend align="center"><img class="w-5" src="{% static 'logo.svg' %}" alt="Flipin"> LogIn</legend>
         {% csrf_token %}
-        {{ form|bootstrap }}
+        {% bootstrap_form form %}
         {% if redirect_field_value %}
             <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
